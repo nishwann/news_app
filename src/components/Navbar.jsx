@@ -1,113 +1,148 @@
-import { useEffect, useState } from "react";
-import { getAllNews } from "../services/newsService";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = ({setCategory, setSource, setSearch}) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchedArticles, setSearchedArticles] = useState([]);
-  
+const Navbar = ({ setSearchQuery, setCategory }) => {
+  const navigate = useNavigate();
+  const [Categorys, setCategorys] = useState([]);
+
+
   const onSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      getSeacrhedNews();
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
-
-  const getSeacrhedNews = async () => {
-    if (!searchQuery) return;
-    const searchResults = await getAllNews(searchQuery);
-    setSearch(searchResults);
+  const onSearchSubmit = (e) => {
+    e.preventDefault();
+    navigate("/search");
   };
-  
 
-    return (
-      <>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-          <div className="container-fluid">
-            <a className="navbar-brand" href="#"><span className="badge bg-light text-dark fs-4">News App</span></a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <button className="nav-link active" aria-current="page" onClick={() => setCategory("general")}>Home</button>
-                </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Category
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <div className="dropdown-item" onClick={() => setCategory("technology")}>Technology</div>
-                    </li>
-                    <li>
-                      <div className="dropdown-item" onClick={() => setCategory("business")}>Business</div>
-                    </li>                    
-                    <li>
-                      <a className="dropdown-item" onClick={() => setCategory("health")}>Health</a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" onClick={() => setCategory("sports")}>Sports</a>
-                    </li>                    
-                    <li>
-                      <a className="dropdown-item" onClick={() => setCategory("entertainment")}>Entertainment</a>
-                    </li>
-                  </ul>
-                </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Filter
-                  </a>
-                  <ul className="dropdown-menu">
-                    <div className="d-flex align-center">
-                      <input className="m-2" placeholder="Source Name"></input>
-                      <input className="m-2" type="date"></input>
-                      <button className="m-2">submit</button>
+  const handleCategoryChange = (category) => {
+    debugger
+    setCategorys(category);
+    navigate("/category");
+  };
+
+  return (
+    <>
+      <nav
+        className="navbar navbar-expand-lg bg-body-tertiary"
+        data-bs-theme="dark"
+      >
+        <div className="container-fluid">
+          <span className="navbar-brand">
+            <span className="badge bg-light text-dark fs-4">News App</span>
+          </span>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <button
+                  className="nav-link active btn btn-link"
+                  onClick={() => navigate("/")}
+                >
+                  Home
+                </button>
+              </li>
+              <li className="nav-item dropdown">
+                <span
+                  className="nav-link dropdown-toggle"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Category
+                </span>
+                <ul className="dropdown-menu">
+                  <li>
+                    <div
+                      className="dropdown-item"
+                      onClick={() => handleCategoryChange("technology")}
+                    >
+                      Technology
                     </div>
-
-                  </ul>
-                </li>
-              </ul>
-              <form className="d-flex" role="search">
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  onChange={(e) => onSearchChange(e)}
-                />
-              </form>
-            </div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-item"
+                      onClick={() => handleCategoryChange("business")}
+                    >
+                      Business
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-item"
+                      onClick={() => handleCategoryChange("health")}
+                    >
+                      Health
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-item"
+                      onClick={() => handleCategoryChange("sports")}
+                    >
+                      Sports
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-item"
+                      onClick={() => handleCategoryChange("entertainment")}
+                    >
+                      Entertainment
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <span
+                  className="nav-link dropdown-toggle"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Filter
+                </span>
+                <ul className="dropdown-menu">
+                  <div className="d-flex align-items-center">
+                    <input
+                      className="m-2"
+                      placeholder="Source Name"
+                      type="text"
+                    />
+                    <input className="m-2" type="date" />
+                    <button className="m-2 btn btn-primary">Submit</button>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+            <form className="d-flex" role="search" onSubmit={onSearchSubmit}>
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                onChange={onSearchChange}
+              />
+              <button className="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
           </div>
-        </nav>
-      </>
-    );
-  };
-  
-  export default Navbar;
-  
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default Navbar;

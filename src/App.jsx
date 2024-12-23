@@ -1,16 +1,19 @@
-import { useState } from "react";
-import Navbar from "./components/Navbar";
-import NewsBoard from "./components/NewsBoard";
+import Home from "./pages/Home"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SearchItem from "./components/SearchItem";
+import Category from "./components/Category";
 const App = () => {
-  const [category,setCategory] = useState("general");
-  const [source,setSource] = useState("");
-  const [search,setSearch] = useState("");
-
   return (
-    <>
-      <Navbar setCategory={setCategory} setSource={setSource} setSearch={setSearch}/>
-      <NewsBoard category={category} source={source} search={search} />
-    </>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchItem />} />
+          <Route path="/category" element={<Category/>} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+
   );
 };
 

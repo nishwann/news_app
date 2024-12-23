@@ -1,6 +1,5 @@
 import image from "../assets/images/new.jpg"
 const NewsItem = ({title, description, src, url}) => {
-  debugger
     return (
       <div className="card bg-dark text-light mb-3 d-inline-block my-3 mx-3 px-2 py-2" style={{ width: "18rem" }}>
         <img src={src ? src : image} style={{height:"200px", width:"260px"}}className="card-img-top" alt="..." />

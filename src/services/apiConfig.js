@@ -17,7 +17,7 @@ const newsNYTApi = axios.create({
 const newsGuardianApi = axios.create({
   baseURL: "https://content.guardianapis.com/",
   params: {
-    "api-key": "d209944d-f089-4956-8d19-0a6506c95080",
+    "api-key": "40e6e18c-fd25-45e8-aa6e-1f262c9b5081",
   },
 });
 
