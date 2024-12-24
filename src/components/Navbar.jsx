@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ setSearchQuery, setCategory }) => {
+const Navbar = ({ setSearchQuery, setCategory = () => {} }) => {
   const navigate = useNavigate();
-  const [Categorys, setCategorys] = useState([]);
-
 
   const onSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -16,8 +13,7 @@ const Navbar = ({ setSearchQuery, setCategory }) => {
   };
 
   const handleCategoryChange = (category) => {
-    debugger
-    setCategorys(category);
+    setCategory(category);
     navigate("/category");
   };
 

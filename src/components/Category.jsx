@@ -1,26 +1,25 @@
-import { Navbar } from "react-bootstrap";
 import NewsItem from "./NewsItem";
 import { useEffect, useState } from "react";
 import { getHeadlines } from "../services/newsService";
+import Navbar from "./Navbar";
 
 const Category = () => {
-    const [category, setCategory] = useState("");
-    const [categoryNews, setCategoryNews] = useState([]);
-    debugger
+  const [categoryNews, setCategoryNews] = useState([]);
+  const [category, setCategory] = useState("");
 
 
-    useEffect(() => {
-        fetchCategoryNews();
-      }, [category]);
+  useEffect(() => {
+    fetchCategoryNews();
+  }, [category]);
 
-    const fetchCategoryNews = async () => {
-        try {
-          const newsData = await getHeadlines("news", category);
-          setCategoryNews(newsData);
-        } catch (error) {
-          console.error("Error fetching category news:", error);
-        } 
-      };
+  const fetchCategoryNews = async () => {
+    try {
+      const newsData = await getHeadlines("news", category);
+      setCategoryNews(newsData);
+    } catch (error) {
+      console.error("Error fetching category news:", error);
+    }
+  };
 
   return (
     <div>
@@ -36,7 +35,8 @@ const Category = () => {
           />
         );
       })}
-    </div>  )
-}
+    </div>
+  );
+};
 
-export default Category
+export default Category;
