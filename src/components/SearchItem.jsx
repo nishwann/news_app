@@ -9,24 +9,23 @@ const SearchItem = () => {
   const [searchedArticles, setSearchedArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const timer = setTimeout(() => {
       getSearchedNews();
-    }, 300); 
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
   const getSearchedNews = async () => {
-    setLoading(false)
+    setLoading(false);
     if (!searchQuery) return;
     try {
-      setLoading(false)
+      setLoading(false);
       const searchResults = await getAllNews(searchQuery);
       setSearchedArticles(searchResults || []);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.error("Error fetching news:", error);
       setSearchedArticles([]);
     }
@@ -34,34 +33,33 @@ const SearchItem = () => {
 
   return (
     <>
-          {loading ? (
-        <div
-          className="vh-100 d-flex justify-content-center align-items-center"
-        >
+      {loading ? (
+        <div className="vh-100 d-flex justify-content-center align-items-center">
           <Loader size="3x" message="Loading content, please wait..." />
         </div>
-      ) : (    <div>
-        <Navbar setSearchQuery={setSearchQuery} />
-        <div className="news-container">
-          {searchedArticles.length > 0 ? (
-            searchedArticles.map((news, index) => (
-              <NewsItem
-                key={index}
-                title={news.title}
-                description={news.description}
-                src={news.imageUrl}
-                url={news.redirectionUrl}
-              />
-            ))
-          ) : (
-            <h2 className="text-center">
-              No articles found.<span>Please search for something.</span>
-            </h2>
-          )}
+      ) : (
+        <div>
+          <Navbar setSearchQuery={setSearchQuery} />
+          <div className="news-container">
+            {searchedArticles.length > 0 ? (
+              searchedArticles.map((news, index) => (
+                <NewsItem
+                  key={index}
+                  title={news.title}
+                  description={news.description}
+                  src={news.imageUrl}
+                  url={news.redirectionUrl}
+                />
+              ))
+            ) : (
+              <h2 className="text-center">
+                No articles found.<span>Please search for something.</span>
+              </h2>
+            )}
+          </div>
         </div>
-      </div>)}
+      )}
     </>
-
   );
 };
 
