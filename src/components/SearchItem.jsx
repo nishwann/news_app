@@ -6,33 +6,46 @@ import Navbar from "./Navbar";
 const SearchItem = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedArticles, setSearchedArticles] = useState([]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      getSeacrhedNews();
-    }, 300);
+      getSearchedNews();
+    }, 300); 
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const getSeacrhedNews = async () => {
+  const getSearchedNews = async () => {
     if (!searchQuery) return;
-    const searchResults = await getAllNews(searchQuery);
-    setSearchedArticles(searchResults);
+    try {
+      const searchResults = await getAllNews(searchQuery);
+      setSearchedArticles(searchResults || []);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+      setSearchedArticles([]);
+    }
   };
+
   return (
     <div>
       <Navbar setSearchQuery={setSearchQuery} />
-      {searchedArticles.map((news, index) => {
-        return (
-          <NewsItem
-            key={index}
-            title={news.title}
-            description={news.description}
-            src={news.imageUrl}
-            url={news.redirectionUrl}
-          />
-        );
-      })}
+      <div className="news-container">
+        {searchedArticles.length > 0 ? (
+          searchedArticles.map((news, index) => (
+            <NewsItem
+              key={index}
+              title={news.title}
+              description={news.description}
+              src={news.imageUrl}
+              url={news.redirectionUrl}
+            />
+          ))
+        ) : (
+          <h2 className="text-center">
+            No articles found.<span>Please search for something.</span>
+          </h2>
+        )}
+      </div>
     </div>
   );
 };

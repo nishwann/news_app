@@ -4,7 +4,7 @@ const Corosal = ({ title, description, images, redirectUrl }) => {
         id="carouselExample"
         className="carousel slide mx-auto"
         data-bs-ride="carousel"
-        style={{ maxWidth: "800px" }} // Restrict the overall width
+        style={{ maxWidth: "800px", transition: "transform 10s" }}
       >
         <div className="carousel-inner">
           {images.map((imgSrc, index) => (
@@ -18,7 +18,6 @@ const Corosal = ({ title, description, images, redirectUrl }) => {
                 alt={`Slide ${index + 1}`}
                 style={{ maxHeight: "400px", objectFit: "cover" }}
               />
-              {/* Hyperlink Button */}
               <div
                 className="carousel-caption d-none d-md-block"
                 style={{ backgroundColor: "rgba(0,0,0,0.5)", borderRadius: "5px" }}
