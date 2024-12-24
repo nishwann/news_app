@@ -25,6 +25,9 @@ const Category = () => {
   return (
     <div>
       <Navbar setCategory={setCategory} />
+      <h2 className="text-center">
+      {category} <span>category</span>
+      </h2>
       <div className="news-container">
         {categoryNews.length > 0 ? (
           categoryNews.map((news, index) => (
